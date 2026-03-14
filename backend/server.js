@@ -4,25 +4,24 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
+// middleware
 app.use(express.json());
 
-// Serve frontend files
+// serve frontend folder
 app.use(express.static(path.join(__dirname, "../frontend")));
 
-// Root route (open dashboard)
+// homepage
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
 
-// AI automation endpoint
+// AI endpoint
 app.post("/run-ai", async (req, res) => {
 
   const { role, location, profile } = req.body;
 
-  console.log("AI request received:", role, location);
+  console.log("Request received:", role, location);
 
-  // For now we return a demo response
   const result = `
 AI Automation Started
 
@@ -37,9 +36,10 @@ Next steps:
 `;
 
   res.send(result);
+
 });
 
-// Start server
-app.listen(PORT, () => {
+// IMPORTANT: listen on Railway PORT
+app.listen(PORT, "0.0.0.0", () => {
   console.log("Server running on port " + PORT);
 });
