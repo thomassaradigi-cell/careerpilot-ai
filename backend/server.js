@@ -1,28 +1,45 @@
-import express from "express";
-import { runCareerAI } from "./career-ai-controller.js";
+const express = require("express");
+const path = require("path");
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
+// Middleware
 app.use(express.json());
 
+// Serve frontend files
+app.use(express.static(path.join(__dirname, "../frontend")));
+
+// Root route (open dashboard)
 app.get("/", (req, res) => {
-  res.send("CareerPilot AI Backend Running");
+  res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
 
-app.get("/run-ai", async (req, res) => {
+// AI automation endpoint
+app.post("/run-ai", async (req, res) => {
 
-  const userProfile = `
-MBA Graduate
-Skills: Excel, Power BI, Financial Analysis, SQL
-Experience: Financial reporting internship
+  const { role, location, profile } = req.body;
+
+  console.log("AI request received:", role, location);
+
+  // For now we return a demo response
+  const result = `
+AI Automation Started
+
+Role: ${role}
+Location: ${location}
+
+Next steps:
+✔ Searching jobs
+✔ Generating resume
+✔ Writing cover letter
+✔ Preparing recruiter email
 `;
 
-  await runCareerAI("Business Analyst", "India", userProfile);
-
-  res.send("AI Job Automation Started");
-
+  res.send(result);
 });
 
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
+// Start server
+app.listen(PORT, () => {
+  console.log("Server running on port " + PORT);
 });
