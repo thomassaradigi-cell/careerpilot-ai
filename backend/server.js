@@ -9,6 +9,11 @@ app.use(express.json());
 // Serve frontend files
 app.use(express.static(path.join(__dirname, "../frontend")));
 
+// Test route (for debugging)
+app.get("/test", (req, res) => {
+  res.send("CareerPilot AI backend is running!");
+});
+
 // Homepage
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/index.html"));
@@ -16,19 +21,18 @@ app.get("/", (req, res) => {
 
 // AI endpoint
 app.post("/run-ai", (req, res) => {
-
   const role = req.body.role;
   const location = req.body.location;
 
   const result =
-  "AI Automation Started\n\n" +
-  "Role: " + role + "\n" +
-  "Location: " + location + "\n\n" +
-  "Next Steps:\n" +
-  "✓ Searching jobs\n" +
-  "✓ Resume optimization\n" +
-  "✓ LinkedIn optimization\n" +
-  "✓ Recruiter email generation";
+    "AI Automation Started\n\n" +
+    "Role: " + role + "\n" +
+    "Location: " + location + "\n\n" +
+    "Next Steps:\n" +
+    "✓ Searching jobs\n" +
+    "✓ Resume optimization\n" +
+    "✓ LinkedIn optimization\n" +
+    "✓ Recruiter email generation";
 
   res.send(result);
 });
