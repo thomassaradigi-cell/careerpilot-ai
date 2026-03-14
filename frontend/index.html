@@ -1,73 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>CareerPilot AI</title>
-
-<style>
-
-body{
-font-family: Arial;
-background:#0f172a;
-color:white;
-text-align:center;
-padding:40px;
-}
-
-input,textarea{
-width:80%;
-padding:12px;
-margin:10px;
-border-radius:8px;
-border:none;
-}
-
-button{
-background:#6366f1;
-color:white;
-padding:14px 25px;
-border:none;
-border-radius:8px;
-font-size:16px;
-cursor:pointer;
-}
-
-</style>
-</head>
-
-<body>
-
-<h1>CareerPilot AI</h1>
-
-<p>AI Job Automation Dashboard</p>
-
-<input id="role" placeholder="Job Role (Example: Business Analyst)">
-
-<input id="location" placeholder="Location (Example: India)">
-
-<textarea id="profile" rows="6"
-placeholder="Paste your profile or resume summary here"></textarea>
-
-<br>
-
-<button onclick="runAI()">Run AI Automation</button>
-
-<p id="result"></p>
-
 <script>
 
 async function runAI(){
 
-document.getElementById("result").innerText="Running AI...";
+  const role = document.getElementById("role").value;
+  const location = document.getElementById("location").value;
+  const profile = document.getElementById("profile").value;
 
-const response = await fetch("https://careerpilot-ai-production-5d8e.up.railway.app/run-ai");
+  document.getElementById("result").innerText = "Running AI...";
 
-const data = await response.text();
+  const response = await fetch("https://careerpilot-ai-production-5d8e.up.railway.app/run-ai",{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body: JSON.stringify({
+      role: role,
+      location: location,
+      profile: profile
+    })
+  });
 
-document.getElementById("result").innerText=data;
+  const data = await response.text();
+
+  document.getElementById("result").innerText = data;
 
 }
 
 </script>
-
-</body>
-</html>
