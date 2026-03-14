@@ -3,12 +3,12 @@ const path = require("path");
 
 const app = express();
 
-// IMPORTANT: Railway requires this
-const PORT = process.env.PORT;
+// Railway requires this
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// Serve frontend
+// Serve frontend folder
 app.use(express.static(path.join(__dirname, "../frontend")));
 
 // Test route
@@ -28,7 +28,7 @@ app.post("/run-ai", (req, res) => {
   const location = req.body.location;
 
   const result =
-    "AI Automation Started\n\n" +
+    "🚀 AI Automation Started\n\n" +
     "Role: " + role + "\n" +
     "Location: " + location + "\n\n" +
     "Next Steps:\n" +
