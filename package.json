@@ -1,5 +1,4 @@
-{
-  "name": "careerpilot-ai",
+"name": "careerpilot-ai",
   "version": "1.0.0",
   "description": "AI Career Job Automation Agent",
   "main": "backend/server.js",
