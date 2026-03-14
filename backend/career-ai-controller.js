@@ -1,6 +1,7 @@
 import { findJobs } from "../ai-agents/job-finder-agent.js";
 import { generateResume } from "../ai-agents/resume-agent.js";
 import { generateCoverLetter } from "../ai-agents/coverletter-agent.js";
+import { generateRecruiterEmail } from "../ai-agents/email-agent.js";
 import { saveApplication } from "../database/job-database.js";
 
 export async function runCareerAI(keyword, location, userProfile) {
@@ -17,13 +18,20 @@ export async function runCareerAI(keyword, location, userProfile) {
 
     const coverLetter = await generateCoverLetter(job.title, userProfile);
 
+    const email = await generateRecruiterEmail(
+      job.title,
+      job.company,
+      userProfile
+    );
+
     saveApplication(job.title, job.company);
 
     console.log({
       job: job.title,
       company: job.company,
       resume,
-      coverLetter
+      coverLetter,
+      email
     });
 
   }
