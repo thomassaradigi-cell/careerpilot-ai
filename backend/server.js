@@ -2,14 +2,16 @@ const express = require("express");
 const path = require("path");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+
+// IMPORTANT: Railway requires this
+const PORT = process.env.PORT;
 
 app.use(express.json());
 
-// Serve frontend files
+// Serve frontend
 app.use(express.static(path.join(__dirname, "../frontend")));
 
-// Test route (for debugging)
+// Test route
 app.get("/test", (req, res) => {
   res.send("CareerPilot AI backend is running!");
 });
@@ -21,6 +23,7 @@ app.get("/", (req, res) => {
 
 // AI endpoint
 app.post("/run-ai", (req, res) => {
+
   const role = req.body.role;
   const location = req.body.location;
 
@@ -35,9 +38,10 @@ app.post("/run-ai", (req, res) => {
     "✓ Recruiter email generation";
 
   res.send(result);
+
 });
 
 // Start server
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
