@@ -6,23 +6,23 @@ const app = express();
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("CareerPilot AI is running");
+  res.send("CareerPilot AI Backend Running");
 });
 
-app.post("/run-ai", async (req, res) => {
+app.get("/run-ai", async (req, res) => {
 
-  const { keyword, location, userProfile } = req.body;
+  const userProfile = `
+MBA Graduate
+Skills: Excel, Power BI, Financial Analysis, SQL
+Experience: Financial reporting internship
+`;
 
-  await runCareerAI(keyword, location, userProfile);
+  await runCareerAI("Business Analyst", "India", userProfile);
 
-  res.json({
-    status: "AI automation started"
-  });
+  res.send("AI Job Automation Started");
 
 });
 
-const PORT = 3000;
-
-app.listen(PORT, () => {
-  console.log("Server running on port", PORT);
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
 });
